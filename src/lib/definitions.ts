@@ -1,8 +1,13 @@
+import { AddressTable } from '@/database/schema';
+
 export const dietaryRestrictions = [
   'laktóz',
   'glutén',
-  'mogyoró és dió',
+  'mogyoró',
+  'dió',
   'tojás',
 ] as const;
 
 export type DietaryRestriction = (typeof dietaryRestrictions)[number];
+export type Address = typeof AddressTable.$inferSelect;
+export type NewAddress = typeof AddressTable.$inferInsert;
