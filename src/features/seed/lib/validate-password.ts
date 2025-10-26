@@ -1,15 +1,11 @@
-import { NextResponse } from "next/server";
-
-export const validatePassword = (password: string | null): NextResponse<{ error: string }> | null => {
+export const validatePassword = (password: string | null): void => {
   if (!process.env.SEED_PASSWORD) {
-    return NextResponse.json({ error: 'SEED_PASSWORD not configured' }, { status: 500 });
+    throw new Error('SEED_PASSWORD is not set in environment variables');
   }
-  if(!password) {
-    return NextResponse.json({ error: 'Password is required' }, { status: 400 });
+  if (!password) {
+    throw new Error('Password is required');
   }
   if (password !== process.env.SEED_PASSWORD) {
-    return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
+    throw new Error('Unauthorized');
   }
-
-  return null;
-}
+};

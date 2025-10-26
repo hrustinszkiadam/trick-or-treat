@@ -2,19 +2,29 @@ import { redirect, RedirectType } from 'next/navigation';
 import { NextResponse } from 'next/server';
 import { validatePassword } from '@/features/seed/lib/validate-password';
 import { seedDatabase } from '@/features/seed/lib/seed-database';
+import tryCatch from '@/lib/tryCatch';
 
 export async function GET({ url }: Request) {
   const searchParams = new URL(url).searchParams;
   const password = searchParams.get('password') || searchParams.get('p');
 
-  const validationError = validatePassword(password);
-  if (validationError) {
-    return validationError;
+  const [, passwordValidationError] = await tryCatch(
+    Promise.resolve(validatePassword(password)),
+  );
+  if (passwordValidationError) {
+    return NextResponse.json(
+      { error: passwordValidationError.message },
+      {
+        status: passwordValidationError.message.includes('required')
+          ? 400
+          : 401,
+      },
+    );
   }
 
-  const result = await seedDatabase();
-  if (result instanceof NextResponse) {
-    return result;
+  const [, seedError] = await tryCatch(seedDatabase());
+  if (seedError) {
+    return NextResponse.json({ error: seedError.message }, { status: 500 });
   }
 
   return redirect('/', RedirectType.replace);
