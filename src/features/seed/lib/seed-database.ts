@@ -1,3 +1,5 @@
+'use server';
+
 export const seedDatabase = async (): Promise<object> => {
   const result = {};
   if (!result) {
