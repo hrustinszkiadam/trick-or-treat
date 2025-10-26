@@ -1,5 +1,3 @@
-'use server';
-
 import { env } from '@/env';
 
 export const validatePassword = (password: string | null): void => {
