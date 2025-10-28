@@ -1,19 +1,15 @@
 import type { Metadata } from 'next';
-import { Geist, Geist_Mono } from 'next/font/google';
+import { Geist } from 'next/font/google';
 import { ThemeProvider } from '@/ui/components/theme-provider';
 import { ModeToggle } from '@/ui/components/theme-toggler';
-import PumpkinBackground from '@/ui/pumpkin-background';
+import PumpkinBackground from '@/ui/components/pumpkin-background';
 
 import '@/ui/globals.css';
 
 const geistSans = Geist({
   variable: '--font-geist-sans',
   subsets: ['latin'],
-});
-
-const geistMono = Geist_Mono({
-  variable: '--font-geist-mono',
-  subsets: ['latin'],
+  fallback: ['ui-sans-serif', 'system-ui'],
 });
 
 export const metadata: Metadata = {
@@ -43,14 +39,12 @@ export default function RootLayout({
       lang='hu'
       suppressHydrationWarning
     >
-      <body
-        className={`${geistSans.variable} ${geistMono.variable} overflow-hidden antialiased`}
-      >
+      <body className={`${geistSans.variable} antialiased`}>
         <ThemeProvider
           attribute='class'
           defaultTheme='system'
-          enableSystem
           enableColorScheme
+          enableSystem
           disableTransitionOnChange
         >
           <PumpkinBackground />

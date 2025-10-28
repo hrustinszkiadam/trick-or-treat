@@ -5,7 +5,7 @@ import { Address, dietaryRestrictions } from '@/lib/definitions';
 import { AddressTable } from '../schemas/address.schema';
 import { cacheTag, updateTag } from 'next/cache';
 import { redirect } from 'next/navigation';
-import { eq } from 'drizzle-orm';
+import { desc, eq } from 'drizzle-orm';
 import z from 'zod';
 
 const DietaryRestrictionsSchema = z.enum(dietaryRestrictions);
@@ -52,7 +52,13 @@ export type State = {
 export async function getAddresses(): Promise<Address[]> {
   'use cache';
   cacheTag('addresses');
-  return await db.query.AddressTable.findMany();
+  return await db.query.AddressTable.findMany({
+    orderBy: (address) => [
+      desc(address.doesHaveTreats),
+      address.lastName,
+      address.firstName,
+    ],
+  });
 }
 
 export async function createAddress(prevState: State, data: FormData) {

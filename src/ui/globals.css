@@ -37,7 +37,9 @@
   --sidebar-ring: oklch(0.77 0 0);
 
   --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --font-mono:
+    'Geist Mono', 'Geist Mono Fallback', ui-monospace, SFMono-Regular, Consolas,
+    'Liberation Mono', Menlo, Courier, monospace;
   --font-serif:
     'Geist', 'Geist Fallback', ui-serif, Georgia, Cambria, 'Times New Roman',
     Times, serif;

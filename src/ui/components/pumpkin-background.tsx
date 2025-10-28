@@ -4,7 +4,7 @@ import Image from 'next/image';
 
 export default function PumpkinBackground() {
   return (
-    <div className='pointer-events-none fixed inset-0 -z-10 h-full w-full overflow-hidden opacity-10 dark:opacity-5'>
+    <div className='pointer-events-none fixed inset-0 -z-10 h-full w-full overflow-hidden opacity-5'>
       <div className='md:hidden'>
         <PumpkinsMobile />
       </div>
