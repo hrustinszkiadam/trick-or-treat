@@ -60,6 +60,7 @@ function PumpkinImage({
         position,
         index % 2 === 0 ? 'h-32 w-32 rotate-15' : 'h-24 w-24 -rotate-15',
       )}
+      loading='eager'
     />
   );
 }

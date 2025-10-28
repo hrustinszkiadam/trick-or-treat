@@ -2,8 +2,9 @@ import type { Metadata } from 'next';
 import { Geist, Geist_Mono } from 'next/font/google';
 import { ThemeProvider } from '@/ui/components/theme-provider';
 import { ModeToggle } from '@/ui/components/theme-toggler';
-import '@/ui/globals.css';
 import PumpkinBackground from '@/ui/pumpkin-background';
+
+import '@/ui/globals.css';
 
 const geistSans = Geist({
   variable: '--font-geist-sans',
