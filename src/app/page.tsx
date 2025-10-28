@@ -3,7 +3,7 @@ import Link from 'next/link';
 
 export default async function Home() {
   return (
-    <main className='mx-auto flex min-h-screen flex-col items-center justify-center gap-10 text-center font-sans md:gap-14 md:text-lg'>
+    <main className='flex min-h-screen flex-col items-center justify-center gap-10 text-center font-sans md:gap-14 md:text-lg'>
       <h1 className='text-primary m-0 text-3xl font-bold tracking-wider md:text-4xl'>
         Csokit vagy csalunk!
       </h1>
