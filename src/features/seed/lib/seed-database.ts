@@ -11,7 +11,7 @@ export const seedDatabase = async (): Promise<object> => {
     .values(placeholderAddresses)
     .returning();
   if (!results.length) {
-    throw new Error('Database Error: Failed to Seed Database');
+    throw new Error('Adatbázis Hiba: Nem sikerült a címek seedelése');
   }
   return results;
 };

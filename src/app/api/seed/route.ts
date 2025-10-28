@@ -3,6 +3,7 @@ import { NextResponse } from 'next/server';
 import { validatePassword } from '@/features/seed/lib/validate-password';
 import { seedDatabase } from '@/features/seed/lib/seed-database';
 import tryCatch from '@/lib/tryCatch';
+import { revalidateTag } from 'next/cache';
 
 export async function GET({ url }: Request) {
   const searchParams = new URL(url).searchParams;
@@ -27,5 +28,6 @@ export async function GET({ url }: Request) {
     return NextResponse.json({ error: seedError.message }, { status: 500 });
   }
 
+  revalidateTag('addresses', 'max');
   return redirect('/', RedirectType.replace);
 }

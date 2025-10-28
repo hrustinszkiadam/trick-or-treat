@@ -1,8 +1,8 @@
 import type { Metadata } from 'next';
 import { Geist, Geist_Mono } from 'next/font/google';
-import '@/ui/globals.css';
 import { ThemeProvider } from '@/ui/components/theme-provider';
 import { ModeToggle } from '@/ui/components/theme-toggler';
+import '@/ui/globals.css';
 
 const geistSans = Geist({
   variable: '--font-geist-sans',
@@ -16,22 +16,19 @@ const geistMono = Geist_Mono({
 
 export const metadata: Metadata = {
   title: {
-    default: 'Trick or Treat',
-    template: '%s | Trick or Treat',
+    default: 'Csokit vagy csalunk',
+    template: '%s | Csokit vagy csalunk',
   },
   keywords: [
     'Halloween',
-    'Trick or Treat',
-    'Candy',
-    'Houses',
-    'Fun',
     'Csokit vagy csalunk',
     'Cukorka',
     'Házak',
     'Szórakozás',
   ],
   description:
-    'A simple Halloween application for trick or treaters to find the best houses. 🎃',
+    'Egyszerű Halloweeni alkalmazás, amely segít a csokit kérőknek megtalálni a legjobb házakat. 🎃',
+  authors: [{ name: 'Hrustinszki Ádám', url: 'https://gh.hrustinszki.tech' }],
 };
 
 export default function RootLayout({
@@ -41,7 +38,7 @@ export default function RootLayout({
 }>) {
   return (
     <html
-      lang='en'
+      lang='hu'
       suppressHydrationWarning
     >
       <body
