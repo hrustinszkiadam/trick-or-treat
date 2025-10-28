@@ -4,11 +4,13 @@ import Link from 'next/link';
 export default function NotFound() {
   return (
     <main className='flex min-h-screen flex-col items-center justify-center gap-10 text-center font-sans md:text-lg'>
-      <h1 className='text-primary m-0 text-3xl font-bold tracking-wider md:text-4xl'>
-        404 - Az oldal nem található
+      <h1 className='text-primary m-0 flex flex-col items-center justify-center text-4xl font-bold tracking-wider'>
+        <span>404</span>
+        <span className='text-3xl'>Az oldal nem található</span>
       </h1>
-      <p className='w-[90%] tracking-wide'>
-        Az oldal, amit keresel, nem található.
+      <p className='m-0 w-[90%] tracking-wide'>
+        Az oldal, amit keresel, nem található. Lehet, hogy el lett távolítva,
+        átnevezve, vagy ideiglenesen nem elérhető.
       </p>
       <Button
         asChild

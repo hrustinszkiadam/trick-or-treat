@@ -3,6 +3,7 @@ import { Geist, Geist_Mono } from 'next/font/google';
 import { ThemeProvider } from '@/ui/components/theme-provider';
 import { ModeToggle } from '@/ui/components/theme-toggler';
 import '@/ui/globals.css';
+import PumpkinBackground from '@/ui/pumpkin-background';
 
 const geistSans = Geist({
   variable: '--font-geist-sans',
@@ -42,7 +43,7 @@ export default function RootLayout({
       suppressHydrationWarning
     >
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+        className={`${geistSans.variable} ${geistMono.variable} overflow-hidden antialiased`}
       >
         <ThemeProvider
           attribute='class'
@@ -51,6 +52,7 @@ export default function RootLayout({
           enableColorScheme
           disableTransitionOnChange
         >
+          <PumpkinBackground />
           <ModeToggle className='absolute top-4 right-4 p-5 transition-transform hover:scale-115' />
           {children}
         </ThemeProvider>
