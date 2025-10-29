@@ -3,6 +3,7 @@ import { Geist } from 'next/font/google';
 import { ThemeProvider } from '@/ui/components/theme-provider';
 import { ModeToggle } from '@/ui/components/theme-toggler';
 import PumpkinBackground from '@/ui/components/pumpkin-background';
+import { env } from '@/env';
 
 import '@/ui/globals.css';
 
@@ -12,21 +13,41 @@ const geistSans = Geist({
   fallback: ['ui-sans-serif', 'system-ui'],
 });
 
+const appName = 'Csokit vagy csalunk';
+const description =
+  'Egyszerű Halloweeni alkalmazás, amely segít a csokit kérőknek megtalálni a legjobb házakat. 🎃';
+
 export const metadata: Metadata = {
   title: {
-    default: 'Csokit vagy csalunk',
-    template: '%s | Csokit vagy csalunk',
+    default: appName,
+    template: `%s | ${appName}`,
   },
-  keywords: [
-    'Halloween',
-    'Csokit vagy csalunk',
-    'Cukorka',
-    'Házak',
-    'Szórakozás',
-  ],
-  description:
-    'Egyszerű Halloweeni alkalmazás, amely segít a csokit kérőknek megtalálni a legjobb házakat. 🎃',
-  authors: [{ name: 'Hrustinszki Ádám', url: 'https://gh.hrustinszki.tech' }],
+  keywords: ['Halloween', appName, 'Cukorka', 'Házak', 'Szórakozás'],
+  description,
+  authors: [{ name: 'Hrustinszki Ádám', url: env.AUTHOR_URL }],
+  applicationName: appName,
+  openGraph: {
+    title: appName,
+    siteName: appName,
+    description,
+    url: env.FULL_URL,
+    type: 'website',
+    locale: 'hu_HU',
+    images: [
+      {
+        url: `${env.FULL_URL}/og-logo.png`,
+        width: 630,
+        height: 630,
+        alt: appName,
+      },
+    ],
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: appName,
+    description,
+    images: [`${env.FULL_URL}/og-logo.png`],
+  },
 };
 
 export default function RootLayout({

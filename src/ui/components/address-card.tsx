@@ -25,7 +25,7 @@ export default function AddressCard({ address }: AddressCardProps) {
     doesHaveTreats,
   } = address;
   return (
-    <Card className='justify-between gap-8 bg-transparent'>
+    <Card className='justify-between gap-8 bg-transparent tracking-wider'>
       <CardHeader>
         <CardTitle
           className={cn('text-lg md:text-xl', {
@@ -76,7 +76,11 @@ export default function AddressCard({ address }: AddressCardProps) {
       </CardContent>
       <Activity mode={doesHaveTreats ? 'visible' : 'hidden'}>
         <CardAction className='mx-auto'>
-          <OutOfTreatsForm id={address.id} />
+          <OutOfTreatsForm
+            id={address.id}
+            firstName={firstName}
+            lastName={lastName}
+          />
         </CardAction>
       </Activity>
       <Activity mode={!doesHaveTreats ? 'visible' : 'hidden'}>
