@@ -25,7 +25,7 @@ export default function AddressCard({ address }: AddressCardProps) {
     doesHaveTreats,
   } = address;
   return (
-    <Card className='justify-between bg-transparent'>
+    <Card className='justify-between gap-8 bg-transparent'>
       <CardHeader>
         <CardTitle
           className={cn('text-lg md:text-xl', {
@@ -37,11 +37,6 @@ export default function AddressCard({ address }: AddressCardProps) {
         <CardDescription className='text-foreground'>
           {city}, {addressLine}
         </CardDescription>
-        <CardAction className='my-auto'>
-          <Activity mode={doesHaveTreats ? 'visible' : 'hidden'}>
-            <OutOfTreatsForm id={address.id} />
-          </Activity>
-        </CardAction>
       </CardHeader>
       <CardContent className='justify-center text-center'>
         <Activity
@@ -79,6 +74,11 @@ export default function AddressCard({ address }: AddressCardProps) {
           <span>Nem tud érzékenységekre figyelni.</span>
         </Activity>
       </CardContent>
+      <Activity mode={doesHaveTreats ? 'visible' : 'hidden'}>
+        <CardAction className='mx-auto'>
+          <OutOfTreatsForm id={address.id} />
+        </CardAction>
+      </Activity>
       <Activity mode={!doesHaveTreats ? 'visible' : 'hidden'}>
         <CardFooter className='justify-center'>
           <span className='text-muted-foreground'>

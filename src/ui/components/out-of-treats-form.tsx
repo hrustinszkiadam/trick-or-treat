@@ -16,7 +16,7 @@ export default function OutOfTreatsForm({ id }: { id: string }) {
           }
         }}
       >
-        Elfogyott a cukorka
+        Elfogyott a cukorka?
       </Button>
     </form>
   );
