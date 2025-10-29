@@ -93,22 +93,24 @@ export async function getSummary(): Promise<{
   return { withTreats, withDietaryAlternatives, addressCount };
 }
 
-export async function createAddress(prevState: State, data: FormData) {
+export async function createAddress(prevState: State, formData: FormData) {
   const validatedFields = CreateAddressSchema.safeParse({
-    firstName: data.get('firstName'),
-    lastName: data.get('lastName'),
-    city: data.get('city'),
-    address: data.get('address'),
-    dietaryRestrictions: data.getAll('dietaryRestrictions'),
+    firstName: formData.get('firstName'),
+    lastName: formData.get('lastName'),
+    city: formData.get('city'),
+    address: formData.get('address'),
+    dietaryRestrictions: formData.getAll('dietaryRestrictions'),
   });
 
   if (!validatedFields.success) {
-    return {
-      errors: z.treeifyError(validatedFields.error).errors,
-      message: 'Hiányzó mezők. Cím létrehozása sikertelen.',
+    const returnObj: State = {
+      errors: z.flattenError(validatedFields.error).fieldErrors,
+      message: 'Hiányzó mezők',
     };
+    return returnObj;
   }
   const newAddressData = validatedFields.data;
+
   const [newAddress] = await db
     .insert(AddressTable)
     .values(newAddressData)
@@ -119,7 +121,7 @@ export async function createAddress(prevState: State, data: FormData) {
   }
 
   updateTag('addresses');
-  redirect('/');
+  redirect('/addresses');
 }
 
 export async function ranOutOfTreats(id: string) {

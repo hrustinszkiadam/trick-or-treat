@@ -11,3 +11,10 @@ export const dietaryRestrictions = [
 export type DietaryRestriction = (typeof dietaryRestrictions)[number];
 export type Address = typeof AddressTable.$inferSelect;
 export type NewAddress = typeof AddressTable.$inferInsert;
+export type FormValues = {
+  firstName: string;
+  lastName: string;
+  city: string;
+  address: string;
+  dietaryRestrictions: DietaryRestriction[];
+};
