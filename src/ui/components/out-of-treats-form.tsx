@@ -18,14 +18,14 @@ export default function OutOfTreatsForm({
         onClick={(e) => {
           if (
             !confirm(
-              `Biztosan elfogyott a cukorka ${lastName} ${firstName} házánál?`,
+              `Biztosan elfogyott az édesség ${lastName} ${firstName} házánál?`,
             )
           ) {
             e.preventDefault();
           }
         }}
       >
-        Elfogyott a cukorka?
+        Elfogyott az édesség?
       </Button>
     </form>
   );

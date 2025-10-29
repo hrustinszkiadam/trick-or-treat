@@ -86,7 +86,7 @@ export default function AddressCard({ address }: AddressCardProps) {
       <Activity mode={!doesHaveTreats ? 'visible' : 'hidden'}>
         <CardFooter className='justify-center'>
           <span className='text-muted-foreground'>
-            Sajnos itt már elfogyott a cukorka.
+            Sajnos itt már elfogyott az édesség.
           </span>
         </CardFooter>
       </Activity>

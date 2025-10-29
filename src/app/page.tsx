@@ -8,7 +8,7 @@ export default async function Home() {
         Csokit vagy csalunk!
       </h1>
       <p className='dark:text-muted-foreground w-[90%] tracking-wide'>
-        Cukorkát keresel, vagy te kínálsz? Válassz, melyik oldalán állsz a
+        Édességet keresel, vagy esetleg kínálsz? Válassz, melyik oldalán állsz a
         Halloweennek 🎃
       </p>
       <section className='flex items-center justify-center gap-4 md:gap-8'>
@@ -22,7 +22,7 @@ export default async function Home() {
           asChild
           className='w-1/2 md:w-2/3 md:text-lg'
         >
-          <Link href='/addresses/new'>Cukorkát kínálok</Link>
+          <Link href='/addresses/new'>Édességet kínálok</Link>
         </Button>
       </section>
     </main>
