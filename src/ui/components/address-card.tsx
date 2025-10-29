@@ -50,11 +50,11 @@ export default function AddressCard({ address }: AddressCardProps) {
             A következő érzékenységekre tud figyelni:
           </h3>
           {dietaryRestrictions.length > 0 && (
-            <ul className='flex flex-wrap items-center justify-center gap-x-4 gap-y-2 overflow-x-auto md:gap-x-8 md:gap-y-4'>
+            <ul className='flex flex-wrap items-center justify-center gap-x-4 gap-y-2 overflow-x-auto lg:gap-x-4 lg:gap-y-4'>
               {sortedDietaryRestrictions(dietaryRestrictions).map(
                 (restriction) => (
                   <li
-                    className='w-[40%] border px-6 py-1 text-lg'
+                    className='w-[45%] border px-6 py-1 text-lg md:px-4 lg:px-6'
                     key={restriction}
                   >
                     {restriction}

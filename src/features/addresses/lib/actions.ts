@@ -1,11 +1,15 @@
 'use server';
 
 import { db } from '@/database';
-import { Address, dietaryRestrictions } from '@/lib/definitions';
+import {
+  Address,
+  DietaryRestriction,
+  dietaryRestrictions,
+} from '@/lib/definitions';
 import { AddressTable } from '../schemas/address.schema';
 import { cacheTag, updateTag } from 'next/cache';
 import { redirect } from 'next/navigation';
-import { desc, eq } from 'drizzle-orm';
+import { and, arrayOverlaps, desc, eq } from 'drizzle-orm';
 import z from 'zod';
 
 const DietaryRestrictionsSchema = z.enum(dietaryRestrictions);
@@ -52,6 +56,7 @@ export type State = {
 export async function getAddresses(): Promise<Address[]> {
   'use cache';
   cacheTag('addresses');
+
   return await db.query.AddressTable.findMany({
     orderBy: (address) => [
       desc(address.doesHaveTreats),
@@ -59,6 +64,33 @@ export async function getAddresses(): Promise<Address[]> {
       address.firstName,
     ],
   });
+}
+
+export async function getSummary(): Promise<{
+  withTreats: number;
+  withDietaryAlternatives: number;
+  addressCount: number;
+}> {
+  'use cache';
+  cacheTag('addresses');
+
+  const addressCount = await db.$count(AddressTable);
+  const withTreats = await db.$count(
+    AddressTable,
+    eq(AddressTable.doesHaveTreats, true),
+  );
+  const withDietaryAlternatives = await db.$count(
+    AddressTable,
+    and(
+      eq(AddressTable.doesHaveTreats, true),
+      arrayOverlaps(
+        AddressTable.dietaryRestrictions,
+        dietaryRestrictions as unknown as DietaryRestriction[],
+      ),
+    ),
+  );
+
+  return { withTreats, withDietaryAlternatives, addressCount };
 }
 
 export async function createAddress(prevState: State, data: FormData) {

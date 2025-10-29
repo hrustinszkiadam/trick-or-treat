@@ -1,3 +1,3 @@
 export default function NewAddressPage() {
-  return <div>New Address Page</div>;
+  return <div></div>;
 }

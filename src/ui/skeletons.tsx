@@ -24,9 +24,14 @@ export function AddressListSkeleton() {
   );
 }
 
+export function SummarySkeleton() {
+  return <div></div>;
+}
+
 export function AddressPageSkeleton() {
   return (
     <main className='min-h-screen px-5 py-20 font-sans md:p-20'>
+      <SummarySkeleton />
       <AddressListSkeleton />
     </main>
   );
