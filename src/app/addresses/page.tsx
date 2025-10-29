@@ -10,7 +10,7 @@ export const metadata: Metadata = {
 
 export default async function AddressPage() {
   return (
-    <main className='min-h-screen px-5 py-20 font-sans md:p-20'>
+    <main className='flex min-h-screen flex-col gap-16 px-5 py-20 font-sans md:p-20 lg:py-32'>
       <Suspense fallback={<SummarySkeleton />}>
         <Summary />
       </Suspense>

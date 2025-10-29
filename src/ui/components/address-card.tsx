@@ -25,7 +25,7 @@ export default function AddressCard({ address }: AddressCardProps) {
     doesHaveTreats,
   } = address;
   return (
-    <Card className='justify-between gap-8 bg-transparent tracking-wider'>
+    <Card className='justify-between gap-8 bg-transparent tracking-wider shadow-lg backdrop-blur-xs'>
       <CardHeader>
         <CardTitle
           className={cn('text-lg md:text-xl', {
