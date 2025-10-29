@@ -16,7 +16,7 @@ export async function GET({ url }: Request) {
     return NextResponse.json(
       { error: passwordValidationError.message },
       {
-        status: passwordValidationError.message.includes('required')
+        status: passwordValidationError.message.includes('kötelező')
           ? 400
           : 401,
       },

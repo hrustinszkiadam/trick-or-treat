@@ -14,13 +14,13 @@ export default async function Home() {
       <section className='flex items-center justify-center gap-4 md:gap-8'>
         <Button
           asChild
-          className='w-[50%] md:text-lg'
+          className='w-1/2 md:w-2/3 md:text-lg'
         >
           <Link href='/addresses'>Felfedezem a címeket</Link>
         </Button>
         <Button
           asChild
-          className='w-[50%] md:text-lg'
+          className='w-1/2 md:w-2/3 md:text-lg'
         >
           <Link href='/addresses/new'>Cukorkát kínálok</Link>
         </Button>
