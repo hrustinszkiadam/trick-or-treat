@@ -7,7 +7,7 @@ import {
   dietaryRestrictions,
 } from '@/lib/definitions';
 import { AddressTable } from '../schemas/address.schema';
-import { cacheTag, updateTag } from 'next/cache';
+import { cacheTag, revalidatePath, updateTag } from 'next/cache';
 import { redirect } from 'next/navigation';
 import { and, arrayOverlaps, desc, eq } from 'drizzle-orm';
 import z from 'zod';
@@ -121,6 +121,7 @@ export async function createAddress(prevState: State, formData: FormData) {
   }
 
   updateTag('addresses');
+  revalidatePath('/addresses');
   redirect('/addresses');
 }
 
@@ -142,4 +143,5 @@ export async function ranOutOfTreats(id: string) {
   }
 
   updateTag('addresses');
+  revalidatePath('/addresses');
 }
