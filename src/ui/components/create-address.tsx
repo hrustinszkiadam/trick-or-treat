@@ -70,7 +70,7 @@ export default function Form() {
       className='space-y-8 tracking-wide'
     >
       <FieldSet>
-        <FieldLegend>Név Adatok</FieldLegend>
+        <FieldLegend>Személyes Adatok</FieldLegend>
         <FieldDescription>
           A cím felvételéhez kérjük, add meg a nevedet.
         </FieldDescription>
@@ -81,7 +81,7 @@ export default function Form() {
               id='lastName'
               name='lastName'
               type='text'
-              placeholder='János'
+              placeholder='Kovács'
               value={values.lastName}
               onChange={handleInputChange}
               aria-invalid={!!state.errors?.lastName}
@@ -99,7 +99,7 @@ export default function Form() {
               id='firstName'
               name='firstName'
               type='text'
-              placeholder='János'
+              placeholder='Péter'
               value={values.firstName}
               onChange={handleInputChange}
               aria-invalid={!!state.errors?.firstName}
