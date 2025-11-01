@@ -35,8 +35,8 @@ export const metadata: Metadata = {
     locale: 'hu_HU',
     images: [
       {
-        url: `${env.FULL_URL}/og-logo.png`,
-        width: 630,
+        url: `${env.FULL_URL}/opengraph.png`,
+        width: 1200,
         height: 630,
         alt: appName,
       },
@@ -46,7 +46,7 @@ export const metadata: Metadata = {
     card: 'summary_large_image',
     title: appName,
     description,
-    images: [`${env.FULL_URL}/og-logo.png`],
+    images: [`${env.FULL_URL}/opengraph.png`],
   },
 };
 
