@@ -1,12 +1,18 @@
 import { env } from '@/env';
-import { drizzle } from 'drizzle-orm/neon-http';
+import { drizzle as drizzlePostgres } from 'drizzle-orm/node-postgres';
+import { drizzle as drizzleNeon } from 'drizzle-orm/neon-http';
 import { neon } from '@neondatabase/serverless';
 import * as schema from './schema';
 
-const sql = neon(env.DATABASE_URL);
+const isNeon = env.DATABASE_URL.includes('neon');
 
-export const db = drizzle({
-  client: sql,
-  schema,
-  casing: 'snake_case',
-});
+export const db = isNeon
+  ? drizzleNeon({
+      client: neon(env.DATABASE_URL),
+      schema,
+      casing: 'snake_case',
+    })
+  : drizzlePostgres(env.DATABASE_URL, {
+      schema,
+      casing: 'snake_case',
+    });

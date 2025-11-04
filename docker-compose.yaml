@@ -1,0 +1,17 @@
+name: trick-or-treat
+
+services:
+  db:
+    image: postgres:latest
+    container_name: trick-or-treat-db
+    environment:
+      POSTGRES_USER: user
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: trick_or_treat
+    ports:
+      - '5432:5432'
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+
+volumes:
+  pgdata:

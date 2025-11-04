@@ -7,10 +7,11 @@ import {
   dietaryRestrictions,
 } from '@/lib/definitions';
 import { AddressTable } from '../schemas/address.schema';
-import { cacheTag, revalidatePath, updateTag } from 'next/cache';
+import { cacheLife, cacheTag, revalidatePath, updateTag } from 'next/cache';
 import { redirect } from 'next/navigation';
 import { and, arrayOverlaps, desc, eq } from 'drizzle-orm';
 import z from 'zod';
+import { cache } from 'react';
 
 const DietaryRestrictionsSchema = z.enum(dietaryRestrictions);
 
@@ -53,9 +54,13 @@ export type State = {
   message?: string | null;
 };
 
-export async function getAddresses(): Promise<Address[]> {
+export const getAddresses = cache(async (): Promise<Address[]> => {
   'use cache';
   cacheTag('addresses');
+  cacheLife({
+    stale: 1000 * 30,
+    revalidate: 1000 * 60,
+  });
 
   return await db.query.AddressTable.findMany({
     orderBy: (address) => [
@@ -64,34 +69,36 @@ export async function getAddresses(): Promise<Address[]> {
       address.firstName,
     ],
   });
-}
+});
 
-export async function getSummary(): Promise<{
-  withTreats: number;
-  withDietaryAlternatives: number;
-  addressCount: number;
-}> {
-  'use cache';
-  cacheTag('addresses');
+export const getSummary = cache(
+  async (): Promise<{
+    withTreats: number;
+    withDietaryAlternatives: number;
+    addressCount: number;
+  }> => {
+    'use cache';
+    cacheTag('addresses');
 
-  const addressCount = await db.$count(AddressTable);
-  const withTreats = await db.$count(
-    AddressTable,
-    eq(AddressTable.doesHaveTreats, true),
-  );
-  const withDietaryAlternatives = await db.$count(
-    AddressTable,
-    and(
+    const addressCount = await db.$count(AddressTable);
+    const withTreats = await db.$count(
+      AddressTable,
       eq(AddressTable.doesHaveTreats, true),
-      arrayOverlaps(
-        AddressTable.dietaryRestrictions,
-        dietaryRestrictions as unknown as DietaryRestriction[],
+    );
+    const withDietaryAlternatives = await db.$count(
+      AddressTable,
+      and(
+        eq(AddressTable.doesHaveTreats, true),
+        arrayOverlaps(
+          AddressTable.dietaryRestrictions,
+          dietaryRestrictions as unknown as DietaryRestriction[],
+        ),
       ),
-    ),
-  );
+    );
 
-  return { withTreats, withDietaryAlternatives, addressCount };
-}
+    return { withTreats, withDietaryAlternatives, addressCount };
+  },
+);
 
 export async function createAddress(prevState: State, formData: FormData) {
   const validatedFields = CreateAddressSchema.safeParse({
