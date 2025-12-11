@@ -7,8 +7,8 @@ import {
   dietaryRestrictions,
 } from '@/lib/definitions';
 import { AddressTable } from '../schemas/address.schema';
-import { cacheLife, cacheTag, revalidatePath, updateTag } from 'next/cache';
-import { redirect } from 'next/navigation';
+import { cacheLife, cacheTag, revalidatePath, revalidateTag } from 'next/cache';
+import { redirect, RedirectType } from 'next/navigation';
 import { and, arrayOverlaps, desc, eq } from 'drizzle-orm';
 import z from 'zod';
 import { cache } from 'react';
@@ -57,10 +57,7 @@ export type State = {
 export const getAddresses = cache(async (): Promise<Address[]> => {
   'use cache';
   cacheTag('addresses');
-  cacheLife({
-    stale: 1000 * 30,
-    revalidate: 1000 * 60,
-  });
+  cacheLife('minutes');
 
   return await db.query.AddressTable.findMany({
     orderBy: (address) => [
@@ -127,8 +124,8 @@ export async function createAddress(prevState: State, formData: FormData) {
     throw new Error('Adatbázis hiba: Cím létrehozása sikertelen');
   }
 
-  updateTag('addresses');
   revalidatePath('/addresses');
+  revalidateTag('addresses', {});
   redirect('/addresses');
 }
 
@@ -149,6 +146,6 @@ export async function ranOutOfTreats(id: string) {
     throw new Error('Adatbázis hiba: Nem sikerült frissíteni a címet');
   }
 
-  updateTag('addresses');
   revalidatePath('/addresses');
+  revalidateTag('addresses', {});
 }
